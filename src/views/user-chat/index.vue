@@ -27,7 +27,6 @@
                   type="primary"
                   @click="onSend">发送</van-button>
     </van-cell-group>
-
   </div>
 </template>
 

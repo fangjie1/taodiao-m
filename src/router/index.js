@@ -23,18 +23,6 @@ const routes = [
         component: () => import('@/views/home'),
         meta: { requiresAuth: false }
       },
-      // {
-      //   path: '/qa',
-      //   name: 'qa',
-      //   component: () => import('@/views/qa'),
-      //   meta: { requiresAuth: false }
-      // },
-      // {
-      //   path: '/video',
-      //   name: 'video',
-      //   component: () => import('@/views/video'),
-      //   meta: { requiresAuth: false }
-      // },
       {
         path: '/my',
         name: 'my',
@@ -93,7 +81,7 @@ router.beforeEach((to, from, next) => {
           }
         })
       })
-      .catch(() => {
+      .catch((e) => {
         next(false)
       });
   }else{

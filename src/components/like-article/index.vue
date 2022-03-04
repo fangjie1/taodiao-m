@@ -38,23 +38,39 @@ export default {
   },
   methods: {
     async onCollect () {
-      this.loading = true
-      let status = -1
-      try {
-        if (this.value === 1) {
-          //取消点赞
-          await deleteLike(this.articleId)
-        } else {
-          //点赞文章
-          await addLike(this.articleId)
-          status = 1
+      if (this.$store.state.user) {
+        this.loading = true
+        let status = -1
+        try {
+          if (this.value === 1) {
+            //取消点赞
+            await deleteLike(this.articleId)
+          } else {
+            //点赞文章
+            await addLike(this.articleId)
+            status = 1
+          }
+          this.$emit('input', status)
+          this.$toast.success(status === 1 ? '点赞成功' : '取消点赞')
+        } catch (err) {
+          this.$toast.fail('操作失败，请重试')
         }
-        this.$emit('input', status)
-        this.$toast.success(status === 1 ? '点赞成功' : '取消点赞')
-      } catch (err) {
-        this.$toast.fail('操作失败，请重试')
+        this.loading = false
+      } else {
+        this.$dialog.confirm({
+          title: '访问提示',
+          message: '该功能需要登录才能访问，确认登录吗？',
+        })
+          .then(() => {
+            this.$router.replace({
+              name: 'login',
+              query: {
+                redirect: this.$route.fullPath
+              }
+            })
+          }).catch((e) => {
+          });
       }
-      this.loading = false
     }
   },
   created () {

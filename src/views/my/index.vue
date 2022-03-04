@@ -102,6 +102,7 @@ export default {
           title: '确认退出吗？'
         })
         .then(() => {
+          // 清空搜索历史记录，聊天记录，token
           setItem('TOUTIAO_SEARCH_HISTORIES', '')
           setItem('CHAT-MESSAGE', '')
           this.$store.commit('setUser', '')

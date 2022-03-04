@@ -51,24 +51,40 @@ export default {
   },
   methods: {
     async onFollow () {
-      this.loading = true //展示关注按钮的loading状态
-      try {
-        if (this.isFollowed) {
-          //已关注，取消关注
-          await deleteFlow(this.userId)
-        } else {
-          //没有关注，则关注
-          await addFlow(this.userId)
+      if (this.$store.state.user) {
+        this.loading = true //展示关注按钮的loading状态
+        try {
+          if (this.isFollowed) {
+            //已关注，取消关注
+            await deleteFlow(this.userId)
+          } else {
+            //没有关注，则关注
+            await addFlow(this.userId)
+          }
+          this.$emit('update-is_followed', !this.isFollowed)
+        } catch (err) {
+          let message = "操作失败，请重试"
+          if (err.response && err.response.status === 400) {
+            message = '不能关注自己'
+          }
+          this.$toast(message);
         }
-        this.$emit('update-is_followed', !this.isFollowed)
-      } catch (err) {
-        let message = "操作失败，请重试"
-        if (err.response && err.response.status === 400) {
-          message = '不能关注自己'
-        }
-        this.$toast(message);
+        this.loading = false//关闭关注按钮的loading状态
+      } else {
+        this.$dialog.confirm({
+          title: '访问提示',
+          message: '该功能需要登录才能访问，确认登录吗？',
+        })
+          .then(() => {
+            this.$router.replace({
+              name: 'login',
+              query: {
+                redirect: this.$route.fullPath
+              }
+            })
+          }).catch((e) => {
+          });
       }
-      this.loading = false//关闭关注按钮的loading状态
     }
   },
   created () {

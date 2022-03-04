@@ -19,7 +19,7 @@
       </van-field>
       <van-field v-model="user.code"
                  name="code"
-                 placeholder="请输入验证码"
+                 placeholder="请输入验证码（万能验证码246810）"
                  :rules="userFormRules.code"
                  type="number"
                  maxlength="6">
@@ -119,7 +119,7 @@ export default {
       }
       this.isCountDownShow = true
       try {
-        const { data } = await sendSms(this.user.mobile)
+        await sendSms(this.user.mobile)
         this.$toast('发送成功')
       } catch (err) {
         this.isCountDownShow = false

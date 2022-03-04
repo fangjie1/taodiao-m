@@ -72,6 +72,7 @@ export default {
   },
   computed: {
     ...mapState(['user']),
+    //推荐频道
     recommendChannels () {
       return this.allChannels.filter(channel => {
         return !this.myChannels.find(myChannel => {
@@ -97,6 +98,7 @@ export default {
     async onAddChannel (channel) {
       this.myChannels.push(channel)
       if (this.user) {
+        // 已登录
         try {
           await addUserChannel({
             id: channel.id,
@@ -106,6 +108,7 @@ export default {
           this.$toast('保存失败,请稍后重试')
         }
       } else {
+        // 未登录，保存到本地
         setItem('TOUTIAO_CHANNELS', this.myChannels)
       }
     },
@@ -131,13 +134,16 @@ export default {
       }
     },
     async deleteChannel (channel) {
+
       if (this.user) {
+        // 已登录
         try {
           await deleteUserChannel(channel.id)
         } catch (err) {
           this.$toast('删除失败,请稍后重试')
         }
       } else {
+        // 未登录，保存到本地
         setItem('TOUTIAO_CHANNELS', this.myChannels)
       }
     }

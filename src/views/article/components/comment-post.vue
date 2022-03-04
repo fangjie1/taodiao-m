@@ -20,12 +20,6 @@ import { addComment } from '@/api/comment'
 export default {
   name: 'CommentPost',
   components: {},
-  // inject: {
-  //   articleId: {
-  //     type: [Number, String],
-  //     required: true
-  //   }
-  // },
   props: {
     target: {
       type: [Number, String],

@@ -30,11 +30,11 @@
                        :src="article.aut_photo" />
           </template>
           <template slot="title">
-            <div class="user-name">{{article.aut_name}}
+            <div class="user-name">小白哒哒
             </div>
           </template>
           <template slot="label">
-            <div class="publish-date">{{article.pubdate|relativeTime}}</div>
+            <div class="publish-date">2天前</div>
           </template>
           <template slot="default">
             <FollowUser class="follow-btn"
@@ -131,11 +131,6 @@ export default {
     CommentPost,
     CommentReply
   },
-  // provide: function () {
-  //   return {
-  //     articleId: this.articleId
-  //   }
-  // },
   props: {
     articleId: {
       type: [Number, String],
