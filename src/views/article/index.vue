@@ -160,9 +160,6 @@ export default {
       this.loading = true
       try {
         const { data } = await getArticleById(this.articleId)
-        // if (Math.random() > 0.5) {
-        //   JSON.parse('ddddd')
-        // }
         this.article = data.data
         this.loading = false
         // 初始化图片点击预览

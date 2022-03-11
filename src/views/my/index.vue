@@ -11,12 +11,11 @@
                      :src="userInfo.photo" />
           <span class="name">{{userInfo.name}}</span>
         </div>
-        <div class="right">
+        <!-- <div class="right">
           <van-button size="mini"
                       round
-                      to="/user/profile"
-                      @click="$store.commit('removeCachePage','LayoutIndex')">编辑资料</van-button>
-        </div>
+                      to="/user/profile">编辑资料</van-button>
+        </div> -->
       </div>
       <div class="data-stats">
         <div class="data-item">
@@ -53,8 +52,7 @@
         <span class="text">登录 / 注册</span>
       </div>
     </div>
-
-    <van-grid class="grid-nav"
+    <!-- <van-grid class="grid-nav"
               :column-num="2"
               clickable>
       <van-grid-item class="grid-item">
@@ -65,11 +63,13 @@
         <i class="toutiao toutiao-lishi"></i>
         <span class="text">历史</span>
       </van-grid-item>
-    </van-grid>
-    <van-cell title="消息通知"
+    </van-grid> -->
+    <van-cell to="/user/profile"
+              title="编辑资料"
+              @click="$store.commit('removeCachePage','LayoutIndex')"
               is-link />
     <van-cell to="/user/chat"
-              title="小智同学"
+              title="小思同学"
               is-link
               class="md9" />
     <van-cell title="退出登录"

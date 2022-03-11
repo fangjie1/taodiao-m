@@ -2,7 +2,7 @@
   <div class="user-chat">
     <!-- 导航栏 -->
     <van-nav-bar class="page-nav-bar"
-                 title="小智同学"
+                 title="小思同学"
                  left-arrow
                  @click-left="$router.back()">
     </van-nav-bar>

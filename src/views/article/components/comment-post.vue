@@ -51,36 +51,53 @@ export default {
   },
   methods: {
     async onPost () {
-      try {
-        this.$toast.loading({
-          duration: 0, // 持续时间，0表示持续展示不停止
-          forbidClick: true, // 是否禁止背景点击
-          message: '发布中...' // 提示消息
-        })
-        //判断是否为回复的主评论
-        if (!this.currentComment) {
-          //回复主评论
-          this.currentMessage = this.message
-        } else {
-          //回复次评论,同时将次评论发送给主评论
-          this.currentMessage = `回复@${this.currentComment.aut_name}：` + this.message
-          await addComment({
-            target: this.comment.com_id, //评论的目标id（评论文章即为文章id，对评论进行回复则为评论id）	
+      if (this.$store.state.user) {
+        try {
+          this.$toast.loading({
+            duration: 0, // 持续时间，0表示持续展示不停止
+            forbidClick: true, // 是否禁止背景点击
+            message: '发布中...' // 提示消息
+          })
+          //判断是否为回复的主评论
+          if (!this.currentComment) {
+            //回复主评论
+            this.currentMessage = this.message
+          } else {
+            //回复次评论,同时将次评论发送给主评论
+            this.currentMessage = `回复@${this.currentComment.aut_name}：` + this.message
+            await addComment({
+              target: this.comment.com_id, //评论的目标id（评论文章即为文章id，对评论进行回复则为评论id）	
+              content: this.currentMessage,//评论内容	
+              art_id: this.articleId //文章id，对评论内容发表回复时，需要传递此参数，表明所属文章id。对文章进行评论，不要传此参数。
+            })
+          }
+          const { data } = await addComment({
+            target: this.target, //评论的目标id（评论文章即为文章id，对评论进行回复则为评论id）	
             content: this.currentMessage,//评论内容	
             art_id: this.articleId //文章id，对评论内容发表回复时，需要传递此参数，表明所属文章id。对文章进行评论，不要传此参数。
           })
+          this.message = ''
+          this.$emit('post-success', data.data)
+          this.$toast.success('发布成功')
+        } catch (err) {
+          this.$toast.fail('发布失败')
         }
-        const { data } = await addComment({
-          target: this.target, //评论的目标id（评论文章即为文章id，对评论进行回复则为评论id）	
-          content: this.currentMessage,//评论内容	
-          art_id: this.articleId //文章id，对评论内容发表回复时，需要传递此参数，表明所属文章id。对文章进行评论，不要传此参数。
+      } else {
+        this.$dialog.confirm({
+          title: '访问提示',
+          message: '该功能需要登录才能访问，确认登录吗？',
         })
-        this.message = ''
-        this.$emit('post-success', data.data)
-        this.$toast.success('发布成功')
-      } catch (err) {
-        this.$toast.fail('发布失败')
+          .then(() => {
+            this.$router.replace({
+              name: 'login',
+              query: {
+                redirect: this.$route.fullPath
+              }
+            })
+          }).catch((e) => {
+          });
       }
+
     }
   }
 }

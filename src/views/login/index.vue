@@ -34,7 +34,7 @@
           <van-button v-else
                       class="send-sms-btn"
                       round
-                      size="small"
+                      size="large"
                       type="default"
                       native-type="button"
                       @click="onSendSms">发送验证码</van-button>
