@@ -4,7 +4,7 @@
                height="40"
                fit="cover"
                round
-               src="https://img0.baidu.com/it/u=3068182434,1904962772&fm=253&fmt=auto&app=138&f=GIF?w=398&h=398" />
+               src="https://img2.baidu.com/it/u=305900223,1827711013&fm=253&fmt=auto&app=138&f=JPEG?w=501&h=500" />
     <div class="word">{{msg.msg}}</div>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
   },
   data () {
     return {
-     
+
     };
   },
 }

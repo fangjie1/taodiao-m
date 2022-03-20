@@ -37,8 +37,6 @@ export default {
   },
   methods: {
     async onCollect () {
-      console.log(this.$store.state.user);
-
       if (this.$store.state.user) {
         this.loading = true
         try {

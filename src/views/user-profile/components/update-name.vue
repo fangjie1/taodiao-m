@@ -64,6 +64,8 @@ export default {
         })
         this.$emit('input', localName)
         this.$emit('close')
+
+        this.$store.commit('setUserInfo', { ...this.$store.state.userInfo, name: localName })
         this.$toast.success('更新成功')
       } catch (error) {
         this.$toast.fail('更新失败')
@@ -74,7 +76,7 @@ export default {
 
   },
   mounted () {
-      this.$refs.fieldName.focus();
+    this.$refs.fieldName.focus();
   },
 }
 </script>

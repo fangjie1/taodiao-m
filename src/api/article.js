@@ -1,15 +1,14 @@
 import request from '@/utils/request'
 
-
 /**
  * 获取文章列表数据
  * @returns Promise
  */
-export const getArticles = params => {
+export const getArticles = (params) => {
   return request({
     method: 'GET',
     url: `/v1_0/articles`,
-    params
+    params,
   })
 }
 
@@ -17,7 +16,7 @@ export const getArticles = params => {
  * 获取文章新闻推荐
  * @returns Promise
  */
-export const getArticleById = articleId => {
+export const getArticleById = (articleId) => {
   return request({
     method: 'GET',
     url: `/v1_0/articles/${articleId}`,
@@ -25,39 +24,39 @@ export const getArticleById = articleId => {
 }
 
 //收藏文章
-export const addCollect = target=> {
+export const addCollect = (target) => {
   return request({
     method: 'POST',
     url: `/v1_0/article/collections`,
-    data:{
-      target
-    }
+    data: {
+      target,
+    },
   })
 }
 
 //取消收藏文章
-export const deleteCollect = target => {
+export const deleteCollect = (target) => {
   return request({
     method: 'DELETE',
-    url: `/v1_0/article/collections/${target}`
+    url: `/v1_0/article/collections/${target}`,
   })
 }
 
 //点赞文章
-export const addLike = target => {
+export const addLike = (target) => {
   return request({
     method: 'POST',
     url: `/v1_0/article/likings`,
     data: {
-      target
-    }
+      target,
+    },
   })
 }
 
 //取消点赞
-export const deleteLike = target => {
+export const deleteLike = (target) => {
   return request({
     method: 'DELETE',
-    url: `/v1_0/article/likings/${target}`
+    url: `/v1_0/article/likings/${target}`,
   })
 }

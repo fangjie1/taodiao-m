@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { getItem } from '@/utils/storage'
+
 export default {
   name: 'RightItem',
   components: {
@@ -24,7 +24,7 @@ export default {
   },
   data () {
     return {
-      img: getItem('USERPHOTO')
+      img: this.$store.state.userInfo.photo
     };
   }
 }

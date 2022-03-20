@@ -15,6 +15,7 @@
              :key="index">
           <van-image class="cover-item-img"
                      fit="cover"
+                     lazy-load
                      :src="img" />
         </div>
       </div>
@@ -29,6 +30,7 @@
               v-if="article.cover.type===1">
       <van-image class="right-cover"
                  fit="cover"
+                 lazy-load
                  :src="article.cover.images[0]" />
     </template>
   </van-cell>

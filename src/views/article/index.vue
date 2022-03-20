@@ -11,7 +11,7 @@
       <div class="loading-wrap"
            v-if="loading">
         <van-loading color="#3296fa"
-                     vertical>加载中
+                     vertical>加载中...
         </van-loading>
       </div>
       <!-- 加载完成-文章详情 -->
@@ -227,10 +227,6 @@ export default {
     background-color: #fff;
     .loading-wrap {
       padding: 200px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #fff;
     }
     .article-detail {
       .article-title {

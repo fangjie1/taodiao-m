@@ -66,7 +66,6 @@
     </van-grid> -->
     <van-cell to="/user/profile"
               title="编辑资料"
-              @click="$store.commit('removeCachePage','LayoutIndex')"
               is-link />
     <van-cell to="/user/chat"
               title="小思同学"
@@ -87,14 +86,16 @@ import { setItem } from '@/utils/storage'
 export default {
   name: 'MyIndex',
   computed: {
-    ...mapState(['user'])
-  },
-  data () {
-    return {
-      userInfo: {}
+    ...mapState(['user']),
+    userInfo () {
+      return this.$store.state.userInfo
     }
   },
-
+  // data () {
+  //   return {
+  //     userInfo:
+  //   }
+  // },
   methods: {
     onLogout () {
       this.$dialog
@@ -106,6 +107,7 @@ export default {
           setItem('TOUTIAO_SEARCH_HISTORIES', '')
           setItem('CHAT-MESSAGE', '')
           this.$store.commit('setUser', '')
+          this.$store.commit('setUserInfo', '')
         }).catch(() => {
           // on cancel
         });
@@ -113,8 +115,8 @@ export default {
     async loadUserInfo () {
       try {
         const { data } = await getUserInfo()
-        this.userInfo = data.data
-        setItem('USERPHOTO', this.userInfo.photo)
+        this.$store.commit('setUserInfo', data.data)
+
       } catch (err) {
         this.$toast('获取数据失败,请稍候重试')
       }

@@ -56,6 +56,7 @@ export default {
         const { data } = await updateUserPhoto(formData)
         this.$emit('close')
         this.$emit('update-photo', data.data.photo)
+        this.$store.commit('setUserInfo', { ...this.$store.state.userInfo, photo: data.data.photo })
         this.$toast.success('更新成功')
       } catch (error) {
         this.$toast.fail('更新失败')

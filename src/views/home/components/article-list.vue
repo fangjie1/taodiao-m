@@ -89,6 +89,7 @@ export default {
   },
   mounted () {
     const articleList = this.$refs['article-list']
+    // 监听列表滚动位置
     articleList.onscroll = debounce(() => {
       this.scrollTop = articleList.scrollTop
     }, 50)
@@ -102,7 +103,7 @@ export default {
 
 <style scoped lang="less">
 .article-list {
-  height: 80vh;
+  height: 84vh;
   overflow-y: auto;
 }
 </style> 

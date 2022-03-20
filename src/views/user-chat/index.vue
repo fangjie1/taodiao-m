@@ -7,13 +7,15 @@
                  @click-left="$router.back()">
     </van-nav-bar>
     <!-- 消息列表 -->
-    <van-cell-group class="message-list"
-                    ref="message-list">
+    <van-cell-group class="message-list">
+      <div class="chat-wrap">
+        <LeftItem :msg="{msg:'您好，我是小思有什么可以帮您的吗？'}" />
+      </div>
       <div class="chat-wrap"
            v-for="(msg,index) in messages"
            :key="index">
         <RightItem :msg="msg"
-                   v-if="msg.type===0" />
+                   v-if="msg.name=='me'" />
         <LeftItem :msg="msg"
                   v-else />
       </div>
@@ -46,8 +48,8 @@ export default {
   },
   data () {
     return {
-      message: '',
-      socket: null,
+      message: '',//输入框的内容
+      socket: null, //客户端和服务器端建立连接的socket对象
       messages: getItem('CHAT-MESSAGE') || []
     };
   },
@@ -64,48 +66,64 @@ export default {
   },
   methods: {
     onSend () {
-      if (this.message) {
-        // 发送消息
-        const data = {
-          msg: this.message,
-          timestamp: Date.now()
-        }
-        this.socket.emit('message', data)
-        data.type = 0
-        this.messages.push(data)
-        this.message = ''
+      if (this.message.trim().length === 0) return
+      // 发送消息
+      const data = {
+        msg: this.message,
+        timestamp: Date.now()
       }
+      this.socket.emit('message', data)
+      this.messages.push({
+        name: 'me',
+        msg: this.message,
+      })
+      this.message = ''
     },
-    // 自动滚至底部
+    // 最后一条消息滚至底部
     scrollToBottom () {
-      const list = this.$refs['message-list']
-      list.scrollTop = list.scrollHeight
+      const list = document.querySelector('.message-list')
+      if (list) {
+        list.scrollTop = list.scrollHeight
+        // list.scrollIntoView({
+        //   behavior: 'smooth'
+        // })
+      }
     }
   },
   created () {
     //建立连接
-    const socket = io('http://toutiao.itheima.net', {
+    const socket = io('ws://geek.itheima.net', {
       query: {
         token: this.$store.state.user
       },
       transports: ['websocket']
     })
     this.socket = socket
-    // socket.on("connect", () => {
-    //   console.log('连接建立成功了');
-    // });
-    // socket.on("disconnect", () => {
-    //   console.log('断开连接了');
-    // });
-    // 接收消息
+
+    // 测试是否连接成功
+    socket.on("connect", () => {
+      console.log('连接建立成功了');
+    });
+    socket.on("disconnect", () => {
+      console.log('断开连接了');
+    });
+
+    // 接收后端消息
     socket.on("message", (data) => {
-      data.type = 1
-      this.messages.push(data)
+      this.messages.push({
+        name: 'xs',
+        msg: data.msg
+      })
     });
   },
   mounted () {
     this.scrollToBottom()
+
   },
+  destroyed () {
+    this.socket.close()
+    this.socket = null
+  }
 }
 </script>
 
