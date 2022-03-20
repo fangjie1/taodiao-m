@@ -7,6 +7,7 @@
               :error.sync="error"
               error-text="请求失败，点击重新加载">
       <van-cell v-for="(article,index) in list"
+                :to="`/article/${article.art_id}`"
                 :key="index"
                 :title="article.title" />
     </van-list>

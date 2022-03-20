@@ -44,19 +44,16 @@ export default {
   },
   methods: {
     onSearch (val) {
-      if (this.SearchText != '') {
-        //更新文本框内容
-        this.SearchText = val
-        // 存储搜索结果
-        const index = this.SearchHistories.indexOf(val)
-        if (index !== -1) {
-          this.SearchHistories.splice(index, 1)
-        }
-        this.SearchHistories.unshift(val)
-        // 渲染搜索结果
-        this.isResultShow = true
+      //更新文本框内容
+      this.SearchText = val
+      // 存储搜索结果
+      const index = this.SearchHistories.indexOf(val)
+      if (index !== -1) {
+        this.SearchHistories.splice(index, 1)
       }
-
+      this.SearchHistories.unshift(val)
+      // 渲染搜索结果
+      this.isResultShow = true
     },
     onCancel () {
       this.$router.back()

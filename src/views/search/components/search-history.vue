@@ -43,7 +43,6 @@ export default {
         // 删除状态，删除历史数据
         this.SearchHistories.splice(index, 1)
       } else {
-        console.log(1);
         //非删除状态，直接进入搜索
         this.$emit('search', item)
       }
