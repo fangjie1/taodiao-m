@@ -5,7 +5,7 @@
     </keep-alive>
     <van-tabbar class="layout-tabbar"
                 route>
-      <van-tabbar-item to="/">
+      <van-tabbar-item to="/home">
         <template slot="icon">
           <i class="toutiao toutiao-shouye"></i>
         </template>

@@ -8,6 +8,26 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    redirect: '/home',
+    // name: 'layout',
+    component: () => import(/* webpackChunkName: "layout" */ '@/views/layout'),
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/home'),
+        meta: { requiresAuth: false, index: 0 },
+      },
+      {
+        path: '/my',
+        name: 'my',
+        component: () => import(/* webpackChunkName: "my" */ '@/views/my'),
+        meta: { requiresAuth: false, index: 0 },
+      },
+    ],
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '@/views/login'),
@@ -18,53 +38,35 @@ const routes = [
         next()
       }
     },
-    meta: { requiresAuth: false },
-  },
-  {
-    path: '/',
-    // name: 'layout',
-    component: () => import(/* webpackChunkName: "layout" */ '@/views/layout'),
-    children: [
-      {
-        path: '',
-        name: 'home',
-        component: () => import(/* webpackChunkName: "home" */ '@/views/home'),
-        meta: { requiresAuth: false },
-      },
-      {
-        path: '/my',
-        name: 'my',
-        component: () => import(/* webpackChunkName: "my" */ '@/views/my'),
-        meta: { requiresAuth: false },
-      },
-    ],
+    meta: { requiresAuth: false, index: 1 },
   },
   {
     path: '/search',
     name: 'search',
     component: () => import(/* webpackChunkName: "search" */ '@/views/search'),
-    meta: { requiresAuth: false },
+    meta: { requiresAuth: false, index: 1 },
   },
   {
     path: '/article/:articleId',
     name: 'article',
     component: () =>
       import(/* webpackChunkName: "article" */ '@/views/article'),
-    props: true, //开启Props传参,把路由参数映射到组件的props参数中
+    props: true, //开启Props传参,把路由参数映射到组件的props参数中,
+    meta: { index: 1 },
   },
   {
     path: '/user/profile',
     name: 'user-profile',
     component: () =>
       import(/* webpackChunkName: "user-profile" */ '@/views/user-profile'),
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, index: 1 },
   },
   {
     path: '/user/chat',
     name: 'user-chat',
     component: () =>
       import(/* webpackChunkName: "user-chat" */ '@/views/user-chat'),
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, index: 1 },
   },
 ]
 

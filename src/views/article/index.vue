@@ -6,6 +6,7 @@
                  left-arrow
                  @click-left="$router.back()">
     </van-nav-bar>
+    <!-- 文章区域 -->
     <div class="main-wrap">
       <!-- 加载中 -->
       <div class="loading-wrap"
@@ -54,35 +55,7 @@
                      @onload-success="totalCommentCount=$event.total_count"
                      @click-reply="onReplyClick">
         </CommentList>
-        <!-- 底部区域 -->
-        <div class="
-                     article-bottom">
-          <van-button class="comment-btn"
-                      type="default"
-                      round
-                      size="small"
-                      @click="isPostShow=true">写评论
-          </van-button>
-          <van-icon name="comment-o"
-                    :badge="totalCommentCount"
-                    color="#777"
-                    @click="isPostShow=true" />
-          <CollectArticle v-model="article.is_collected"
-                          :articleId="article.art_id">
-          </CollectArticle>
-          <LikeArticle v-model="article.attitude"
-                       :articleId="article.art_id">
-          </LikeArticle>
-          <van-icon name="share"
-                    color="#777777" />
-        </div>
-        <!--发布评论 -->
-        <van-popup v-model="isPostShow"
-                   position="bottom">
-          <CommentPost v-if="isPostShow"
-                       :target="article.art_id"
-                       @post-success="onPostSuccess" />
-        </van-popup>
+
       </div>
       <!-- 加载失败：404 -->
       <div v-else-if="errStatus===404"
@@ -100,6 +73,34 @@
         </van-button>
       </div>
     </div>
+    <!-- 底部区域 -->
+    <div class="article-bottom">
+      <van-button class="comment-btn"
+                  type="default"
+                  round
+                  size="small"
+                  @click="isPostShow=true">写评论
+      </van-button>
+      <van-icon name="comment-o"
+                :badge="totalCommentCount"
+                color="#777"
+                @click="isPostShow=true" />
+      <CollectArticle v-model="article.is_collected"
+                      :articleId="article.art_id">
+      </CollectArticle>
+      <LikeArticle v-model="article.attitude"
+                   :articleId="article.art_id">
+      </LikeArticle>
+      <van-icon name="share"
+                color="#777777" />
+    </div>
+    <!--发布评论 -->
+    <van-popup v-model="isPostShow"
+               position="bottom">
+      <CommentPost v-if="isPostShow"
+                   :target="article.art_id"
+                   @post-success="onPostSuccess" />
+    </van-popup>
     <!-- 评论回复 -->
     <van-popup v-model="isReplyShow "
                v-if="isReplyShow"

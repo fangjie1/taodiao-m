@@ -7,7 +7,8 @@
                  @click-left="$router.back()">
     </van-nav-bar>
     <!-- 消息列表 -->
-    <van-cell-group class="message-list">
+    <van-cell-group class="message-list"
+                    :border="false">
       <div class="chat-wrap">
         <LeftItem :msg="{msg:'您好，我是小思有什么可以帮您的吗？'}" />
       </div>

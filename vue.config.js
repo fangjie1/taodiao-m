@@ -1,4 +1,5 @@
 module.exports = {
+  // 在当前目录下请求资源
   publicPath: './',
   chainWebpack: (config) => {
     config.plugin('html').tap((args) => {
